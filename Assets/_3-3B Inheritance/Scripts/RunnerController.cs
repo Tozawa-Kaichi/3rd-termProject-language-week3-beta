@@ -27,7 +27,7 @@ public class RunnerController : MonoBehaviour
     void Update()
     {
         // ジャンプ処理
-        if (m_ground==true&&m_nowjumpcount<m_maxjumpcount)
+        if (m_ground==true||m_nowjumpcount<m_maxjumpcount)
         {
             if (Input.GetButtonDown("Jump"))
             {
