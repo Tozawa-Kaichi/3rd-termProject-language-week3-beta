@@ -32,10 +32,12 @@ public class RunnerController : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 _rb.velocity = Vector2.up * _jumpSpeed;
-                _anim.Play("Jump");
+                
                 m_nowjumpcount++;
             }
         }
+
+        _anim.SetBool("ground",m_ground);
     }
 
     /// <summary>
@@ -65,4 +67,5 @@ public class RunnerController : MonoBehaviour
     {
         m_ground = false;
     }
+
 }
