@@ -7,12 +7,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RunnerController : MonoBehaviour
 {
+    bool m_ground = false;
     /// <summary>既定のジャンプ速度</summary>
     [SerializeField] float _defaultJumpSpeed = 3f;
     Rigidbody2D _rb = default;
     Animator _anim = default;
     /// <summary>現在のジャンプ速度</summary>
     float _jumpSpeed = 0f;
+    [SerializeField] int m_maxjumpcount=0;
+    int m_nowjumpcount;
 
     void Start()
     {
@@ -24,10 +27,14 @@ public class RunnerController : MonoBehaviour
     void Update()
     {
         // ジャンプ処理
-        if (Input.GetButtonDown("Jump"))
+        if (m_ground==true&&m_nowjumpcount<m_maxjumpcount)
         {
-            _rb.velocity = Vector2.up * _jumpSpeed;
-            _anim.Play("Jump");
+            if (Input.GetButtonDown("Jump"))
+            {
+                _rb.velocity = Vector2.up * _jumpSpeed;
+                _anim.Play("Jump");
+                m_nowjumpcount++;
+            }
         }
     }
 
@@ -47,5 +54,15 @@ public class RunnerController : MonoBehaviour
         _jumpSpeed = newJumpSpeed;
         yield return new WaitForSeconds(interval);
         _jumpSpeed = _defaultJumpSpeed;
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        m_ground = true;
+        m_nowjumpcount = 0;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        m_ground = false;
     }
 }

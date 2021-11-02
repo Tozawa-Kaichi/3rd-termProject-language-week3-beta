@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultJumpSpeed: 14
+  m_maxjumpcount: 2
 --- !u!70 &130361773
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
